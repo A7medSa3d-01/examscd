@@ -37,6 +37,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-height: 80dvh;
 }
 
 main h1 {
@@ -93,6 +94,126 @@ main h1 {
   letter-spacing: 1px;
 }
 
+#todo-sections-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+  gap: 32px;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto 40px auto;
+  padding: 0 16px;
+}
+
+.todo-section {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(67, 206, 162, 0.10);
+  padding: 32px 24px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.todo-section h2 {
+  color: #185a9d;
+  font-size: 28px;
+  margin-bottom: 18px;
+  font-weight: 700;
+}
+
+.todo-list {
+  list-style: none;
+  width: 100%;
+  padding: 0;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  transition: background 0.3s, color 0.3s;
+  border: none;
+}
+
+.todo-title {
+  flex: 1;
+  text-align: right;
+}
+
+.done-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  margin-right: 12px;
+  transition: transform 0.2s;
+}
+
+.done-btn:active {
+  transform: scale(1.2);
+}
+
+.todo-item.not-done {
+  color: #e53935;
+  background: none;
+}
+
+.todo-item.done {
+  background: #d4f8e8;
+  color: #1b5e20;
+}
+
+.todo-item.done .done-btn {
+  color: #1b5e20;
+}
+
+.todo-item.not-done .done-btn {
+  color: #e53935;
+}
+
+.progress-bar {
+  width: 100%;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.progress-track {
+  flex: 1;
+  height: 16px;
+  background: #e0eafc;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px #43cea220;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+  border-radius: 8px;
+  transition: width 0.4s cubic-bezier(.4,2,.6,1);
+}
+
+.progress-text {
+  min-width: 44px;
+  font-size: 16px;
+  color: #185a9d;
+  font-weight: 700;
+  text-align: left;
+}
+
+@media (max-width: 1200px) {
+  #todo-sections-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 18px;
+  }
+}
+
 @media (max-width: 600px) {
   header {
     font-size: 32px;
@@ -126,5 +247,44 @@ main h1 {
 
   .countdown-label {
     font-size: 14px;
+  }
+
+  #todo-sections-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 0 45px;
+  }
+
+  .todo-section {
+    padding: 8px 25px 8px 25px;
+  }
+
+  .todo-section h2 {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .todo-item {
+    font-size: 12px;
+    padding: 6px 2px;
+    margin-bottom: 4px;
+  }
+
+  .done-btn {
+    font-size: 14px;
+    margin-right: 4px;
+  }
+
+  .progress-bar {
+    margin-bottom: 8px;
+  }
+
+  .progress-track {
+    height: 10px;
+  }
+
+  .progress-text {
+    font-size: 12px;
+    min-width: 28px;
   }
 }
