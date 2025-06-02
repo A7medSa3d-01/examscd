@@ -12,11 +12,16 @@
       <h1>باقي علي امتحان اللغة العربية:</h1>
       <div id="countdown"></div>
     </main>
+    <div class="tasks-title">
+      <h2>المهام</h2>
+      <p>يمكنك الضغط على زر ✔️ لتحديد المهمة كمنجزة.</p>
+      <a href="manage-tasks.html">اضف مهمة جديدة</a>
+    </div>
     <div id="todo-sections-grid">
       <section id="todo-section-1" class="todo-section">
         <h2>اللغة العربية</h2>
         <ul class="todo-list">
-          <li class="todo-item" data-index="0-1">
+          <!-- <li class="todo-item" data-index="0-1">
             <span class="todo-title">مراجعة الدروس الأساسية</span>
             <button class="done-btn" title="تم الإنجاز">✔️</button>
           </li>
@@ -39,13 +44,13 @@
           <li class="todo-item" data-index="5-1">
             <span class="todo-title">الراحة والنوم الجيد</span>
             <button class="done-btn" title="تم الإنجاز">✔️</button>
-          </li>
+          </li> -->
         </ul>
       </section>
       <section id="todo-section-2" class="todo-section">
         <h2>الانجليزي</h2>
         <ul class="todo-list">
-          <li class="todo-item" data-index="0-2">
+          <!-- <li class="todo-item" data-index="0-2">
             <span class="todo-title">مراجعة الدروس الأساسية</span>
             <button class="done-btn" title="تم الإنجاز">✔️</button>
           </li>
@@ -68,13 +73,13 @@
           <li class="todo-item" data-index="5-2">
             <span class="todo-title">الراحة والنوم الجيد</span>
             <button class="done-btn" title="تم الإنجاز">✔️</button>
-          </li>
+          </li> -->
         </ul>
       </section>
       <section id="todo-section-3" class="todo-section">
         <h2>الفيزياء</h2>
         <ul class="todo-list">
-          <li class="todo-item" data-index="0-3">
+          <!-- <li class="todo-item" data-index="0-3">
             <span class="todo-title">مراجعة الدروس الأساسية</span>
             <button class="done-btn" title="تم الإنجاز">✔️</button>
           </li>
@@ -97,13 +102,13 @@
           <li class="todo-item" data-index="5-3">
             <span class="todo-title">الراحة والنوم الجيد</span>
             <button class="done-btn" title="تم الإنجاز">✔️</button>
-          </li>
+          </li> -->
         </ul>
       </section>
       <section id="todo-section-4" class="todo-section">
         <h2>الكيمياء</h2>
         <ul class="todo-list">
-          <li class="todo-item" data-index="0-4">
+          <!-- <li class="todo-item" data-index="0-4">
             <span class="todo-title">مراجعة الدروس الأساسية</span>
             <button class="done-btn" title="تم الإنجاز">✔️</button>
           </li>
@@ -126,13 +131,13 @@
           <li class="todo-item" data-index="5-4">
             <span class="todo-title">الراحة والنوم الجيد</span>
             <button class="done-btn" title="تم الإنجاز">✔️</button>
-          </li>
+          </li> -->
         </ul>
       </section>
       <section id="todo-section-5" class="todo-section">
         <h2>الاحياء</h2>
         <ul class="todo-list">
-          <li class="todo-item" data-index="0-5">
+          <!-- <li class="todo-item" data-index="0-5">
             <span class="todo-title">مراجعة الدروس الأساسية</span>
             <button class="done-btn" title="تم الإنجاز">✔️</button>
           </li>
@@ -155,14 +160,14 @@
           <li class="todo-item" data-index="5-5">
             <span class="todo-title">الراحة والنوم الجيد</span>
             <button class="done-btn" title="تم الإنجاز">✔️</button>
-          </li>
+          </li> -->
         </ul>
       </section>
       <section id="todo-section-6" class="todo-section">
         <h2>مواد غير مضافة للمجموع</h2>
         <div class="progress-bar"></div>
         <ul class="todo-list">
-          <li class="todo-item" data-index="0-6">
+          <!-- <li class="todo-item" data-index="0-6">
             <span class="todo-title">مراجعة الدروس الأساسية</span>
             <button class="done-btn" title="تم الإنجاز">✔️</button>
           </li>
@@ -185,7 +190,7 @@
           <li class="todo-item" data-index="5-6">
             <span class="todo-title">الراحة والنوم الجيد</span>
             <button class="done-btn" title="تم الإنجاز">✔️</button>
-          </li>
+          </li> -->
         </ul>
       </section>
     </div>
@@ -237,13 +242,69 @@
     }, 1000);
 
     // To-Do List Logic
-    const todoSections = document.querySelectorAll(".todo-section");
+    const todoSections = Array.from(document.querySelectorAll(".todo-section"));
     const TASKS_KEY = "exam_tasks_status";
     let tasksStatus = JSON.parse(localStorage.getItem(TASKS_KEY));
-    if (!Array.isArray(tasksStatus) || tasksStatus.length !== todoSections.length || tasksStatus.some(t => !Array.isArray(t) || t.length !== 6)) {
+    if (
+      !Array.isArray(tasksStatus) ||
+      tasksStatus.length !== todoSections.length
+    ) {
       // Re-initialize if corrupted or mismatched
-      tasksStatus = Array.from({length: todoSections.length}, () => Array(6).fill(false));
+      tasksStatus = Array.from({ length: todoSections.length }, () => []);
     }
+
+    // --- Custom Tasks Integration ---
+    const CUSTOM_TASKS_KEY = "exam_tasks_custom";
+    let customTasks = JSON.parse(localStorage.getItem(CUSTOM_TASKS_KEY));
+    if (
+      !Array.isArray(customTasks) ||
+      customTasks.length !== todoSections.length
+    ) {
+      customTasks = Array.from({ length: todoSections.length }, () => []);
+    }
+    // Build a flat list of all tasks (default + custom) for each section
+    const allTasks = todoSections.map((section, sectionIdx) => {
+      const defaultTasks = Array.from(
+        section.querySelectorAll(".todo-item:not(.custom-task) .todo-title")
+      ).map((e) => e.textContent.trim());
+      return [...defaultTasks, ...(customTasks[sectionIdx] || [])];
+    });
+    // Ensure tasksStatus matches the number of tasks in each section
+    allTasks.forEach((tasks, sectionIdx) => {
+      if (!Array.isArray(tasksStatus[sectionIdx])) tasksStatus[sectionIdx] = [];
+      // Add missing slots as false
+      while (tasksStatus[sectionIdx].length < tasks.length) {
+        tasksStatus[sectionIdx].push(false);
+      }
+      // Remove extra slots
+      while (tasksStatus[sectionIdx].length > tasks.length) {
+        tasksStatus[sectionIdx].pop();
+      }
+    });
+    localStorage.setItem(TASKS_KEY, JSON.stringify(tasksStatus));
+
+    todoSections.forEach((section, sectionIdx) => {
+      const todoList = section.querySelector(".todo-list");
+      // Remove all custom tasks (if any)
+      todoList.querySelectorAll(".custom-task").forEach((e) => e.remove());
+      // Add custom tasks
+      (customTasks[sectionIdx] || []).forEach((task, i) => {
+        const li = document.createElement("li");
+        li.className = "todo-item custom-task";
+        li.innerHTML = `<span class="todo-title">${task}</span><button class="done-btn" title="تم الإنجاز">✔️</button>`;
+        todoList.appendChild(li);
+        // Ensure tasksStatus array is large enough
+        if (!tasksStatus[sectionIdx]) tasksStatus[sectionIdx] = [];
+        if (
+          typeof tasksStatus[sectionIdx][todoList.children.length - 1] !==
+          "boolean"
+        ) {
+          tasksStatus[sectionIdx][todoList.children.length - 1] = false;
+        }
+      });
+      // Save tasksStatus to localStorage after custom tasks are added, so the array length matches the UI
+      localStorage.setItem(TASKS_KEY, JSON.stringify(tasksStatus));
+    });
 
     function updateTaskStyles() {
       todoSections.forEach((section, sectionIdx) => {
@@ -258,11 +319,14 @@
           }
         });
         // Add or update progress bar
-        let progressBar = section.querySelector('.progress-bar');
+        let progressBar = section.querySelector(".progress-bar");
         if (!progressBar) {
-          progressBar = document.createElement('div');
-          progressBar.className = 'progress-bar';
-          section.insertBefore(progressBar, section.querySelector('.todo-list'));
+          progressBar = document.createElement("div");
+          progressBar.className = "progress-bar";
+          section.insertBefore(
+            progressBar,
+            section.querySelector(".todo-list")
+          );
         }
         const doneCount = sectionTasks.filter(Boolean).length;
         const percent = Math.round((doneCount / sectionTasks.length) * 100);
@@ -277,7 +341,9 @@
           const li = e.target.closest(".todo-item");
           const section = e.target.closest(".todo-section");
           const sectionIdx = Array.from(todoSections).indexOf(section);
-          const idx = Array.from(section.querySelectorAll('.todo-item')).indexOf(li);
+          const idx = Array.from(
+            section.querySelectorAll(".todo-item")
+          ).indexOf(li);
           tasksStatus[sectionIdx][idx] = !tasksStatus[sectionIdx][idx];
           localStorage.setItem(TASKS_KEY, JSON.stringify(tasksStatus));
           updateTaskStyles();

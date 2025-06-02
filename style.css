@@ -29,6 +29,27 @@ header {
   border-bottom-right-radius: 32px;
 }
 
+header a {
+  display: inline-block;
+  margin-right: 18px;
+  padding: 7px 18px;
+  background: linear-gradient(90deg, #185a9d 0%, #43cea2 100%);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 2px 8px #185a9d22;
+  transition: background 0.3s, color 0.3s, transform 0.2s;
+}
+
+header a:hover,
+header a:focus {
+  background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+  color: #fff;
+  transform: scale(1.04);
+}
+
 main {
   flex: 1;
   padding: 32px 16px 0 16px;
@@ -46,6 +67,32 @@ main h1 {
   color: #185a9d;
   font-weight: 700;
   text-shadow: 0 2px 8px #cfdef3;
+}
+
+main h1 {
+  font-size: 36px;
+  color: #185a9d;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+label[for="section-select"] {
+  font-size: 20px;
+  color: #185a9d;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+  text-align: center;
+}
+
+.section-select {
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto 18px auto;
+  background: #fff;
+  border: 1px solid #43cea2;
+  color: #185a9d;
+  font-weight: 600;
 }
 
 #countdown {
@@ -102,6 +149,47 @@ main h1 {
   max-width: 1600px;
   margin: 0 auto 40px auto;
   padding: 0 16px;
+}
+
+/* TODO LIST SECTION */
+.tasks-title {
+  font-size: 32px;
+  color: #185a9d;
+  font-weight: 700;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.tasks-title h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #43cea2;
+  margin: 8px auto 16px auto;
+  border-radius: 2px;
+}
+
+.tasks-title a {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 20px;
+  background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 2px 8px #185a9d22;
+  transition: background 0.3s, color 0.3s, transform 0.2s;
+}
+
+.tasks-title a:hover,
+.tasks-title a:focus {
+  background: linear-gradient(90deg, #185a9d 0%, #43cea2 100%);
+  color: #fff;
+  transform: scale(1.04);
+  /* text-decoration: underline; */
 }
 
 .todo-section {
@@ -196,7 +284,7 @@ main h1 {
   height: 100%;
   background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
   border-radius: 8px;
-  transition: width 0.4s cubic-bezier(.4,2,.6,1);
+  transition: width 0.4s cubic-bezier(.4, 2, .6, 1);
 }
 
 .progress-text {
@@ -205,6 +293,171 @@ main h1 {
   color: #185a9d;
   font-weight: 700;
   text-align: left;
+}
+
+.task-inputs input {
+  border: 1px solid #43cea2;
+  background: #f7fafc;
+  color: #185a9d;
+}
+
+.task-inputs button,
+#save-tasks {
+  background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 24px;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #185a9d22;
+  transition: background 0.3s, color 0.3s, transform 0.2s;
+}
+
+.task-inputs button:hover,
+#save-tasks:hover {
+  background: linear-gradient(90deg, #185a9d 0%, #43cea2 100%);
+  color: #fff;
+  transform: scale(1.04);
+}
+
+#task-list-preview {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+#task-list-preview li {
+  background: #e0eafc;
+  color: #185a9d;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 18px;
+}
+
+#task-list-preview button {
+  background: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 14px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+#task-list-preview button:hover {
+  background: #b71c1c;
+  transform: scale(1.08);
+}
+
+#save-tasks {
+  display: block;
+  margin: 24px auto 0 auto;
+}
+.custom-toast {
+  position: fixed;
+  top: 50%;
+  right: 40px;
+  z-index: 9999;
+  height: 130px;
+  min-width: 260px;
+  max-width: 80vw;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px #185a9d33;
+  padding: 18px 32px 18px 18px;
+  gap: 26px;
+  background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(120%);
+  transform: translateY(-50%);
+  transition: opacity 0.4s cubic-bezier(.4, 2, .6, 1), transform 0.4s cubic-bezier(.4, 2, .6, 1);
+}
+
+.custom-toast.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.custom-toast.hide {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-120%);
+}
+
+#custom-toast-ok {
+  background: #fff;
+  color: #185a9d;
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 18px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #185a9d22;
+  transition: background 0.3s, color 0.3s, transform 0.2s;
+}
+
+#custom-toast-ok:hover,
+#custom-toast-ok:focus {
+  background: #43cea2;
+  color: #fff;
+  transform: scale(1.04);
+}
+
+#blur-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(5px);
+  z-index: 9998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
+#blur-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (max-width: 600px) {
+  .custom-toast {
+    top: 30vh;
+    right: 5vw;
+    height: 160px;
+    min-width: 160px;
+    width: 250px;
+    font-size: 20px;
+    padding: 10px 10px 10px 10px;
+    border-radius: 10px;
+    gap: 8px;
+  }
+
+  #custom-toast-ok {
+    font-size: 22px;
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
 }
 
 @media (max-width: 1200px) {
@@ -223,8 +476,7 @@ main h1 {
   }
 
   main h1 {
-    font-size: 28px;
-    margin-bottom: 18px;
+    font-size: 22px;
   }
 
   #countdown {
@@ -286,5 +538,27 @@ main h1 {
   .progress-text {
     font-size: 12px;
     min-width: 28px;
+  }
+
+  .section-select {
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  .task-inputs input,
+  .task-inputs button,
+  #save-tasks {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+
+  #task-list-preview li {
+    font-size: 12px;
+    padding: 6px 6px;
+  }
+
+  #task-list-preview button {
+    font-size: 12px;
+    padding: 2px 8px;
   }
 }

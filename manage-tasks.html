@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>إدارة المهام</title>
+    <style>
+      .task-inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+      .task-inputs input {
+        font-size: 18px;
+        padding: 8px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+      }
+      .task-inputs button {
+        font-size: 18px;
+        padding: 8px 24px;
+        border-radius: 8px;
+        background: #43cea2;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+      }
+      .task-list-preview {
+        margin-top: 18px;
+      }
+      .task-list-preview li {
+        font-size: 18px;
+        margin-bottom: 6px;
+      }
+      .section-select {
+        font-size: 20px;
+        padding: 8px;
+        border-radius: 8px;
+        margin-bottom: 18px;
+      }
+      .custom-toast.hide {
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="blur-overlay"></div>
+    <header>إدارة مهام الامتحانات <a href="index.html">home</a></header>
+    <main style="align-items: center">
+      <h1>إضافة أو تعديل مهام قسم</h1>
+      <label for="section-select">اختر القسم:</label>
+      <select id="section-select" class="section-select"></select>
+      <div class="task-inputs">
+        <input type="text" id="new-task" placeholder="أدخل مهمة جديدة..." />
+        <button id="add-task">إضافة</button>
+      </div>
+      <ul id="task-list-preview" class="task-list-preview"></ul>
+      <button id="save-tasks" style="margin-top: 24px">حفظ المهام</button>
+    </main>
+    <div id="custom-toast" class="custom-toast">
+      <span id="custom-toast-message"></span>
+      <button id="custom-toast-ok">حسناً</button>
+    </div>
+    <script>
+      // Section names must match those in index.html
+      const sectionNames = [
+        "اللغة العربية",
+        "الانجليزي",
+        "الفيزياء",
+        "الكيمياء",
+        "الاحياء",
+        "مواد غير مضافة للمجموع",
+      ];
+      const TASKS_KEY = "exam_tasks_custom";
+      let customTasks =
+        JSON.parse(localStorage.getItem(TASKS_KEY)) ||
+        Array.from({ length: sectionNames.length }, () => []);
+      const sectionSelect = document.getElementById("section-select");
+      const taskListPreview = document.getElementById("task-list-preview");
+      const newTaskInput = document.getElementById("new-task");
+      let currentSectionIdx = 0;
+
+      // Populate section dropdown
+      sectionNames.forEach((name, idx) => {
+        const opt = document.createElement("option");
+        opt.value = idx;
+        opt.textContent = name;
+        sectionSelect.appendChild(opt);
+      });
+
+      function renderTasks() {
+        taskListPreview.innerHTML = "";
+        (customTasks[currentSectionIdx] || []).forEach((task, i) => {
+          const li = document.createElement("li");
+          li.textContent = task;
+          // Remove button
+          const rm = document.createElement("button");
+          rm.textContent = "حذف";
+          rm.style.marginRight = "12px";
+          rm.onclick = () => {
+            customTasks[currentSectionIdx].splice(i, 1);
+            renderTasks();
+            showToast("تم حذف المهمة بنجاح!");
+          };
+          li.appendChild(rm);
+          taskListPreview.appendChild(li);
+        });
+      }
+
+      sectionSelect.addEventListener("change", (e) => {
+        currentSectionIdx = parseInt(e.target.value);
+        renderTasks();
+      });
+
+      document.getElementById("add-task").onclick = () => {
+        const val = newTaskInput.value.trim();
+        if (val) {
+          customTasks[currentSectionIdx].push(val);
+          newTaskInput.value = "";
+          renderTasks();
+          showToast("تمت إضافة المهمة بنجاح!");
+        }
+      };
+
+      document.getElementById("save-tasks").onclick = () => {
+        localStorage.setItem(TASKS_KEY, JSON.stringify(customTasks));
+        showToast("تم حفظ المهام بنجاح! يمكنك العودة للصفحة الرئيسية.");
+      };
+
+      function showToast(message) {
+        const toast = document.getElementById("custom-toast");
+        const msg = document.getElementById("custom-toast-message");
+        const blur = document.getElementById("blur-overlay");
+        msg.textContent = message;
+        toast.classList.remove("hide");
+        toast.classList.add("show");
+        blur.classList.add("active");
+      }
+      function hideToast() {
+        const toast = document.getElementById("custom-toast");
+        const blur = document.getElementById("blur-overlay");
+        toast.classList.remove("show");
+        toast.classList.add("hide");
+        blur.classList.remove("active");
+      }
+      document.getElementById("custom-toast-ok").onclick = hideToast;
+
+      // Initial render
+      renderTasks();
+    </script>
+  </body>
+</html>
