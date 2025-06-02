@@ -58,7 +58,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 80dvh;
+  min-height: 50dvh;
 }
 
 main h1 {
@@ -153,7 +153,7 @@ label[for="section-select"] {
 
 /* TODO LIST SECTION */
 .tasks-title {
-  font-size: 32px;
+  font-size: 24px;
   color: #185a9d;
   font-weight: 700;
   margin-bottom: 24px;
@@ -548,7 +548,7 @@ label[for="section-select"] {
   .task-inputs input,
   .task-inputs button,
   #save-tasks {
-    font-size: 14px;
+    font-size: 20px;
     padding: 6px 10px;
   }
 
@@ -560,5 +560,17 @@ label[for="section-select"] {
   #task-list-preview button {
     font-size: 12px;
     padding: 2px 8px;
+  }
+  .tasks-title h2{
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+  .tasks-title p{
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+  .tasks-title a{
+    font-size: 14px;
+    margin-bottom: 16px;
   }
 }
