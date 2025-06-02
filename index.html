@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Exams Count Down</title>
+  </head>
+  <body>
+    <header>ما قبل العاصفة</header>
+    <main>
+      <h1>باقي علي امتحان اللغة العربية:</h1>
+      <div id="countdown"></div>
+    </main>
+  </body>
+  <script>
+    // Set the date we're counting down to
+    const countDownDate = new Date("2025-06-22T09:00:00").getTime();
+
+    // Update the count down every 1 second
+    const x = setInterval(function () {
+      const now = new Date().getTime();
+      const distance = countDownDate - now;
+
+      // Time calculations for days, hours, minutes and seconds
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Display the result in the element with id="countdown"
+      document.getElementById("countdown").innerHTML = `
+      <div class="countdown-container">
+        <div class="countdown-item">
+          <span class="countdown-number">${days}</span>
+          <span class="countdown-label">يوم</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number">${hours}</span>
+          <span class="countdown-label">ساعة</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number">${minutes}</span>
+          <span class="countdown-label">دقيقة</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number">${seconds}</span>
+          <span class="countdown-label">ثانية</span>
+        </div>
+      </div>
+    `;
+
+      // If the count down is over, write some text
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("countdown").innerHTML = "الامتحان قد بدأ!";
+      }
+    }, 1000);
+  </script>
+</html>
