@@ -16,14 +16,12 @@
         font-size: 18px;
         padding: 8px;
         border-radius: 8px;
-        border: 1px solid #ccc;
+        /* border: 1px solid #ccc; */
       }
       .task-inputs button {
         font-size: 18px;
         padding: 8px 24px;
         border-radius: 8px;
-        background: #43cea2;
-        color: #fff;
         border: none;
         cursor: pointer;
       }
@@ -102,7 +100,7 @@
           rm.onclick = () => {
             customTasks[currentSectionIdx].splice(i, 1);
             renderTasks();
-            showToast("تم حذف المهمة بنجاح!");
+            // showToast("تم حذف المهمة بنجاح!");
           };
           li.appendChild(rm);
           taskListPreview.appendChild(li);
@@ -120,7 +118,7 @@
           customTasks[currentSectionIdx].push(val);
           newTaskInput.value = "";
           renderTasks();
-          showToast("تمت إضافة المهمة بنجاح!");
+          // showToast("تمت إضافة المهمة بنجاح!");
         }
       };
 
